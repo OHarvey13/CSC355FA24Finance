@@ -5,7 +5,7 @@
     if (isset($_POST['submit'])) {
 
         try {
-            require_once('../pdo_connect.php');
+            require_once('../../../pdo_connect.php');
 
             $IncomeID = $_POST['IncomeID'];
             $UserID = $_POST['UserID'];
