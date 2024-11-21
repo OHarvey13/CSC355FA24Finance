@@ -1,0 +1,26 @@
+name: Build and Deploy HTML
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run a build script (if needed)
+      run: |
+        echo "No build process required for static HTML."
+        ls -la
+
+    - name: Deploy HTML to custom server
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USER: ${{ secrets.FTP_USER }}
+        FTP_PASS: ${{ secrets.FTP_PASS }}
+      run: |
+        curl -T index.html ftp://$FTP_HOST/ --user $FTP_USER:$FTP_PASS
