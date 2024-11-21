@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--  -->
+<head>
+    <title>Debt Page</title>
+	<meta charset ="utf-8"> 
+	<link rel="stylesheet" href="../styles/main.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+	<h2>View Debt:</h2>
+	
+	<a href="../index.html"> 
+		<button>
+			Home
+			<div class="arrow-wrapper">
+				<div class="arrow"></div>
+			</div>
+		</button>
+	</a>
+
+	<form method = "post" action = "view_debt.php">
+		<label for="DebtID">Debt ID:</label>
+		<input type="number" name="DebtID" required>
+		<br>
+
+		<label for="UserID">User ID:</label>
+		<input type="number" name="UserID" required>
+		<br>
+
+		<label for="DebtType">Debt Type:</label>
+		<input type="text" name="DebtType" required>
+		<br>
+
+		<label for="Amount">Amount:</label>
+		<input type="number" step="0.01" name="Amount" required>
+		<br>
+
+		<label for="InterestRate">Interest Rate:</label>
+		<input type="number" step="0.01" name="InterestRate" required>
+		<br>
+
+		<label for="PaymentDueDate">Payment Due Date:</label>
+		<input type="date" name="PaymentDueDate" required>
+		<br>
+	
+		<input type="submit" name="submit" value="Submit" id = "submit">
+	</form>
+	
+</body>
+</html>
