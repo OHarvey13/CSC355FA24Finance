@@ -9,22 +9,20 @@
 
             $IncomeID = $_POST['IncomeID'];
             $UserID = $_POST['UserID'];
-            $IncomeType = $_POST['IncomeType'];
             $Amount = $_POST['Amount'];
-            $Frequency = $_POST['Frequency'];
             $DateReceived = $_POST['DateReceived'];
+            $IncomeType = $_POST['IncomeType'];
 
-            $insert = "INSERT INTO Income (IncomeID, UserID, IncomeType, Amount, Frequency, DateReceived) 
-            VALUES (:IncomeID, :UserID, :IncomeType, :Amount, :Frequency, :DateReceived)";
+            $insert = "INSERT INTO Income (IncomeID, UserID, Amount, DateReceived, IncomeType) 
+            VALUES (:IncomeID, :UserID, :Amount, :DateReceived, :IncomeType)";
 
             $stmt = $dbc->prepare($insert);
 
             $stmt -> bindParam(':IncomeID', $IncomeID, PDO::PARAM_INT);
             $stmt -> bindParam(':UserID', $UserID, PDO::PARAM_INT);
-            $stmt -> bindParam(':IncomeType', $IncomeType, PDO::PARAM_STR);
             $stmt -> bindParam(':Amount', $Amount, PDO::PARAM_STR);
-            $stmt -> bindParam(':Frequency', $Frequency, PDO::PARAM_STR);
             $stmt -> bindParam(':DateReceived', $DateReceived, PDO::PARAM_STR);
+            $stmt -> bindParam(':IncomeType', $IncomeType, PDO::PARAM_STR);
 
             $stmt->execute();        
         
@@ -56,14 +54,19 @@
     <h2> Inserted Data: </h2>
     <table>
         <tr>
-            <th>Income Amount</th>
-        <?php foreach ($stmt as $income) { 
+            <th>Income ID</th>
+            <th>User ID</th>
+            <th>Amount</th>
+            <th>Date Received</th>
+            <th>Income Type</th>
+        <?php
             echo "<tr>";
             echo "<td>".$_POST['IncomeID']."</td>";
             echo "<td>".$_POST["UserID"]."</td>";
             echo "<td>".$_POST['Amount']."</td>";
+            echo "<td>".$_POST["DateReceived"]."</td>";
+            echo "<td>".$_POST["IncomeType"]."</td>";
             echo "</tr>";
-        }
         ?> 
     </table>
 </body>
