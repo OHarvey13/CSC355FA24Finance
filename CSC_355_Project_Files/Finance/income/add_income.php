@@ -7,7 +7,7 @@
         try {
             require_once('../../../pdo_connect.php');
 
-            // Error handling for data types. Checsk if the data is valid.
+            // Error handling for data types. Checks if the data is valid.
             // filter_input() is used to filter and validate the data that is being inputted into the database.
             $IncomeID = filter_input(INPUT_POST, 'IncomeID', FILTER_VALIDATE_INT);
             $UserID = filter_input(INPUT_POST, 'UserID', FILTER_VALIDATE_INT);
