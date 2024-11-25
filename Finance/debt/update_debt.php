@@ -1,14 +1,13 @@
 <?php
 	ini_set('display_errors', 1);
-//Name: Ej Boakye
+//Name: 
 /*This code assumes user input is valid and correct only for demo purposes - it does NOT validate form data.*/
 	if(isset($_POST['submit'])) { //Form was submitted
-		
+
 		try{
-			require_once('../../../pdo_connect.php'); //adjust the relative path as necessary to find your connect file
-			$sql = 'INSERT INTO Debt (DebtID, UserID, DebtType, Amount, InterestRate, PaymentDueDate) 
-			VALUES (:DebtID, :UserID, :DebtType, :Amount, :InterestRate, :PaymentDueDate)';
-			
+			require_once('../pdo_connect.php'); //adjust the relative path as necessary to find your connect file
+			$sql = 'UPDATE Debt SET UserID = :UserID, DebtType = :DebtType, Amount = :Amount, InterestRate = :InterestRate, PaymentDueDate = :PaymentDueDate WHERE DebtID = :DebtID';
+
 			$stmt = $dbc->prepare($sql);
 			$stmt->bindParam(':DebtID', $_POST['DebtID'], PDO::PARAM_INT);
 			$stmt->bindParam(':UserID', $_POST['UserID'], PDO::PARAM_INT);
@@ -23,7 +22,7 @@
 		}	
 		$affected = $stmt->RowCount();
 		if ($affected == 0){
-			echo "We could not insert into Debt.";
+			echo "We could not update Debt.";
 			exit;
 		}	
 		else {
@@ -34,7 +33,7 @@
 		echo "<h2>You have reached this page in error</h2>";
 		exit;
 	}
-	
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,15 +44,14 @@
 <body>
 	<h2> Inserted Data: </h2>
 	<table>
-		<tr> 
-			<th>Debt ID</th>
-			<th>User ID</th>
-			<th>Debt Type</th>
-			<th>Amount</th>
-			<th>Interest Rate</th>
-			<th>Payment Due-Date</th>
-		</tr>
-	<?php 
+		<tr>
+			<th>DebtID</th>
+            <th>UserID</th>
+            <th>DebtType</th>
+            <th>Amount</th>
+            <th>InterestRate</th>
+            <th>PaymentDueDate</th>
+	<?php foreach($result as $row) {
 		echo "<tr>";
 		echo "<td>".$_POST['DebtID']."</td>";
 		echo "<td>".$_POST['UserID']."</td>";
@@ -61,9 +59,8 @@
 		echo "<td>".$_POST['Amount']."</td>";
 		echo "<td>".$_POST['InterestRate']."</td>";
 		echo "<td>".$_POST['PaymentDueDate']."</td>";
-		// echo "Affected rows: " . $affected;
 		echo "</tr>";
-	?> 
+	}?> 
 	</table>
 </body>
 </html>
