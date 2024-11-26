@@ -1,7 +1,9 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
+ini_set('display_errors', 1);
+
+// Author Name: Omari Harvey
+// This file updates the income table in the database
 if (isset($_POST['submit'])) {
     try {
         require_once('../../../pdo_connect.php');
