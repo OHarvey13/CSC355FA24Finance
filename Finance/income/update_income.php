@@ -17,22 +17,24 @@ if (isset($_POST['submit'])) {
         }
 
         // Prepare the query based on the updated field
-        $query = "";
+        $query = ""; // Query to execute, empty by default
         switch ($updatedField) {
-            case "UserID":
+            case "UserID": // Check if the user ID exists
                 $newValue = filter_var($newValue, FILTER_VALIDATE_INT);
-                if ($newValue === false) {
+                if ($newValue === false) { // Check if the value is a valid integer
                     echo "Invalid value for UserID";
                     exit;
                 }
+                // Call the query based on the case
                 $query = "UPDATE Income SET UserID = :UserID WHERE IncomeID = :IncomeID";
                 break;
-            case "Amount":
+            case "Amount": // Check if the amount is a valid float
                 $newValue = filter_var($newValue, FILTER_VALIDATE_FLOAT);
-                if ($newValue === false) {
+                if ($newValue === false) { // Check if the value is a valid float
                     echo "Invalid value for Amount";
                     exit;
                 }
+                // Call the query based on the case
                 $query = "UPDATE Income SET Amount = :Amount WHERE IncomeID = :IncomeID";
                 break;
             case "DateReceived":
@@ -41,6 +43,7 @@ if (isset($_POST['submit'])) {
                     echo "Invalid value for DateReceived";
                     exit;
                 }
+                // Call the query based on the case
                 $query = "UPDATE Income SET DateReceived = :DateReceived WHERE IncomeID = :IncomeID";
                 break;
             case "IncomeType":
@@ -50,6 +53,7 @@ if (isset($_POST['submit'])) {
                     echo "Invalid value for IncomeType";
                     exit;
                 }
+                // Call the query based on the case
                 $query = "UPDATE Income SET IncomeType = :IncomeType WHERE IncomeID = :IncomeID";
                 break;
             default:
