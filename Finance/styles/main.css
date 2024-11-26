@@ -52,12 +52,6 @@ input {
   background-color: rgba(28, 63, 58, 0.8); /* Slightly lighter green for hover */
 }
 
-/* Temporary size change in CSS for the button component */
-section {
-  width: 200px;
-  height: 200px;
-}
-
 /* Button Component */
 button {
   --primary-color: #1C3F3A; /* Dark forest green */
@@ -77,6 +71,7 @@ button {
   gap: 0.6em;
   font-weight: bold;
   cursor: pointer;
+  margin: 1rem; /* Adds space between buttons */
 }
 
 button .arrow-wrapper {
@@ -128,4 +123,11 @@ a {
 
 a:hover {
   color: rgba(28, 63, 58, 0.8); /* Lighter green for hover */
+}
+
+/* Button Container for Multiple Buttons */
+body {
+  display: flex;
+  flex-wrap: wrap; /* Allows buttons to wrap if needed */
+  gap: 1rem; /* Adds spacing between buttons */
 }
