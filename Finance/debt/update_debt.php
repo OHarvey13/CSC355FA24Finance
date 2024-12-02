@@ -13,7 +13,7 @@
 			if ($Amount == false || empty($PaymentDueDate) && !empty($InterestRate)) {
                 $sql = 'UPDATE Debt SET InterestRate = :InterestRate WHERE DebtID = :DebtID';
             }
-			elseif ($InterestRate == false || empty($InterestRate) && !empty($amount){
+			elseif ($InterestRate == false || empty($InterestRate) && !empty($amount)){
 				$sql = 'UPDATE Debt SET Amount = :Amount WHERE DebtID = :DebtID';
 			}
 			else{
@@ -89,11 +89,8 @@
               
 			echo "We could not update Debt.";
 			exit;
-		}	
-		else {
-			$result = $stmt->fetchAll();
 		}
-	} //end isset
+		//end isset
 	else {
 		echo "<h2>You have reached this page in error</h2>";
 		exit;
