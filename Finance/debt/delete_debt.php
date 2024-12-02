@@ -4,7 +4,6 @@
 /*This code assumes user input is valid and correct only for demo purposes - it does NOT validate form data.*/
 	if(isset($_POST['submit'])) { //Form was submitted
 		
-		
 		try {
             require_once('../../../pdo_connect.php');
 
@@ -84,18 +83,31 @@
 		else { // If the data was not deleted
             echo "<h2>Debt ID: $DebtID was not found.</h2>";
         }
+
 	} //end isset
 	else {
 		echo "<h2>You have reached this page in error</h2>";
 		exit;
 	}
-	
-	
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Debt Deletion result</title>
-    <meta charset ="utf-8">
-<head>
+
+    <title>Debt delete result</title>
+	<meta charset ="utf-8"> 
+</head>
+<body>
+	<h2> Deleted Data: </h2>
+	<table>
+		<tr>
+			<th>Deleted Debt ID</th>
+	<?php foreach($result as $row) {
+		echo "<tr>";
+		echo "<td>".$_POST['DebtID']."</td>";
+		echo "</tr>";
+	}?> 
+	</table>
+</body>
 </html>

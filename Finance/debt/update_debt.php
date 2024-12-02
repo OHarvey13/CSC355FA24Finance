@@ -25,7 +25,6 @@
 			$stmt->bindParam(':Amount', $_POST['Amount'], PDO::PARAM_STR);
 			$stmt->bindParam(':InterestRate', $_POST['InterestRate'], PDO::PARAM_STR);
 
-
 			$stmt->execute();	
 		} catch (PDOException $e){
 			echo $e->getMessage();
@@ -87,6 +86,10 @@
             echo "<h2>Data Insertion Unsuccessful<h2><p>We could not insert into Income.!<p>";
             exit;
         }	
+              
+			echo "We could not update Debt.";
+			exit;
+		}	
 		else {
 			$result = $stmt->fetchAll();
 		}
@@ -95,12 +98,3 @@
 		echo "<h2>You have reached this page in error</h2>";
 		exit;
 	}
-	
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Debt update Submit result</title>
-	<meta charset ="utf-8"> 
-</head>
-</html>

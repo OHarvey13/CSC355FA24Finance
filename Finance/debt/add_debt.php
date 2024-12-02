@@ -1,6 +1,6 @@
 <?php
 	ini_set('display_errors', 1);
-//Name: 
+//Name: Ej Boakye
 /*This code assumes user input is valid and correct only for demo purposes - it does NOT validate form data.*/
 	if(isset($_POST['submit'])) { //Form was submitted
 		
