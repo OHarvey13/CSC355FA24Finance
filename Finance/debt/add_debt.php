@@ -35,6 +35,47 @@
 
 			$stmt->execute();
 
+			$selfJoinQuery = "SELECT 
+								d1.DebtID AS DebtID1, 
+								d1.Amount AS Amount1, 
+								d2.DebtID AS DebtID2, 
+								d2.Amount AS Amount2, 
+								d1.DebtType 
+							FROM Debt d1
+							INNER JOIN Debt d2 
+							ON d1.DebtType = d2.DebtType 
+							AND d1.UserID = d2.UserID 
+							AND d1.DebtID < d2.DebtID
+							WHERE d1.UserID = :UserID";
+			
+			$selfJoinStmt = $dbc->prepare($selfJoinQuery);
+			$selfJoinStmt->bindParam(':UserID', $UserID, PDO::PARAM_INT);
+			$selfJoinStmt->execute();
+			
+			$selfJoinResults = $selfJoinStmt->fetchAll();
+			if ($selfJoinResults) {
+				echo "<h2>Similar Debts for User:</h2>";
+				echo '<table border="1">';
+				echo '<tr>
+						<th>Debt Type</th>
+						<th>DebtID 1</th>
+						<th>Amount 1</th>
+						<th>DebtID 2</th>
+						<th>Amount 2</th>
+					  </tr>';
+				foreach ($selfJoinResults as $row) {
+					echo '<tr>';
+					echo '<td>' . htmlspecialchars($row['DebtType']) . '</td>';
+					echo '<td>' . htmlspecialchars($row['DebtID1']) . '</td>';
+					echo '<td>' . number_format($row['Amount1'], 2) . '</td>';
+					echo '<td>' . htmlspecialchars($row['DebtID2']) . '</td>';
+					echo '<td>' . number_format($row['Amount2'], 2) . '</td>';
+					echo '</tr>';
+				}
+				echo '</table>';
+			} else {
+				echo "<h2>No similar debts found for this user.</h2>";
+			}
 		} catch (PDOException $e){
 			echo $e->getMessage();
 		}	
