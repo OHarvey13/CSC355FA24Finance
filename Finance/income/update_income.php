@@ -83,7 +83,47 @@ if (isset($_POST['submit'])) {
 
         // Execute the query
         if ($stmt->execute()) {
-            echo "Income updated successfully";
+            echo "<div id='modal' class='modal'>
+            <div class='modal-content'>
+                <h2>Data Updated Successfully</h2>
+                <a href='../index.html' class='home-btn'>Home</a>
+            </div>
+        </div>
+        <style>
+            .modal {
+                display: block; /* Show the modal */
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                width: 300px;
+                margin: 0 auto;
+            }
+            .home-btn {
+                display: inline-block;
+                background-color: #1C3F3A;
+                color: white;
+                padding: 10px 20px;
+                margin-top: 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+            .home-btn:hover {
+                background-color: #1C3F3A;
+            }
+        </style>";
         } else {
             echo "Error: " . implode(", ", $stmt->errorInfo());
         }
