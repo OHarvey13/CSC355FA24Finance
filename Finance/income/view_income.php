@@ -43,6 +43,29 @@ if (isset($_POST['submit'])){
             echo 'No results found';
         }
 
+        // Call stored procedure to get financial summary
+        $proc = "CALL GetFinancialSummary(:UserID)";
+        $stmt = $dbc->prepare($proc);
+        $stmt->bindParam(':UserID', $UserID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Display the financial summary
+        $summary = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($summary) {
+            echo '<h1>Financial Summary</h1>';
+            echo '<table border="1">';
+            echo '<tr><th>UserID</th><th>Total Income</th><th>Total Expenses</th><th>Net Balance</th></tr>';
+            echo '<tr>';
+            echo '<td>' . htmlspecialchars($summary['UserID']) . '</td>';
+            echo '<td>' . number_format($summary['TotalIncome'],2) . '</td>';
+            echo '<td>' . number_format($summary['TotalExpenses'],2) . '</td>';
+            echo '<td>' . number_format($summary['NetBalance'],2) . '</td>';
+            echo '</tr>';
+            echo '</table>';
+        } else {
+            echo 'Unable to retrieve financial summary.';
+        }
+
     } catch(Exception $e){
         error_log($e->getMessage());
         echo 'An error has occured. Please try again later';
