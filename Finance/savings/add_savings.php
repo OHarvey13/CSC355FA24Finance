@@ -45,6 +45,22 @@
 <head>
     <title>Savings Submit result</title>
 	<meta charset ="utf-8"> 
+	<style>
+        .back-button {
+            display: inline-block;
+            background-color: #1C3F3A;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #1C3F3A;
+        }
+    </style>
 </head>
 <body>
 	<h2> Inserted Data: </h2>
@@ -70,5 +86,6 @@
 		echo "</tr>";
 	?> 
 	</table>
+	<a href="../index.html" class="back-button">Home</a>
 </body>
 </html>

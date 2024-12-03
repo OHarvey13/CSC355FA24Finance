@@ -37,9 +37,26 @@ if (isset($_POST['submit'])) { // Form was submitted
 <head>
     <title>Savings Submit Result</title>
     <meta charset="utf-8">
+    <style>
+        .back-button {
+            display: inline-block;
+            background-color: #1C3F3A;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #1C3F3A;
+        }
+    </style>
 </head>
 <body>
     <h2>Deleted Savings Record</h2>
     <p>Savings ID <?php echo htmlspecialchars($_POST['SavingsID']); ?> was successfully deleted.</p>
+    <a href="../index.html" class="back-button">Home</a>
 </body>
 </html>
