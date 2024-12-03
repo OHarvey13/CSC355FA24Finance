@@ -13,7 +13,7 @@
             $Amount = filter_input(INPUT_POST, 'Amount', FILTER_VALIDATE_FLOAT);
             $PaymentDueDate = strip_tags($_POST['PaymentDueDate']); // Date format: YYYY-MM-DD
             $DebtType = strip_tags($_POST['DebtType']);
-			$InterestRate = filter_input(INPUT_POST, 'InterestRate'. FILTER_VALIDATE_FLOAT);
+			$InterestRate = filter_input(INPUT_POST, 'InterestRate', FILTER_VALIDATE_FLOAT);
 			
 			if ($DebtID === false || $UserID === false || $Amount == false || empty($PaymentDueDate) || empty($DebtType) || $InterestRate == false) {
                 echo "<h2>Invalid data. Please check your data and try again.</h2>";
@@ -33,7 +33,7 @@
 			echo $e->getMessage();
 		}	
 		$affected = $stmt->RowCount();
-		if ($affected == 0){
+		if ($affected > 0){
             echo // this displays the added data into a table format for the user to see
         "<div id='modal' class='modal'>
             <div class='modal-content'>
@@ -89,16 +89,11 @@
             echo "<h2>Data Insertion Unsuccessful<h2><p>We could not insert into Income.!<p>";
             exit;
         }
-
-
-		else {
-			$result = $stmt->fetchAll();
-		}
-	} //end isset
-	else {
-		echo "<h2>You have reached this page in error</h2>";
+        
+} else {
+        echo "<h2>You have reached this page in error</h2>";
 		exit;
-	}
+}
 	
 ?>
 <!DOCTYPE html>
