@@ -56,5 +56,6 @@ if (isset($_POST['submit'])) {
             <td><?php echo "$" . number_format($result['AverageExpenseAmount'], 2); ?></td>
         </tr>
     </table>
+    <a href="../index.html" class="back-button">Home</a>
 </body>
 </html>

@@ -75,6 +75,6 @@
 		<tr>
 			<th>Your data has been updated. Please go back to and opt to view this user ID to see the altered data</th>
 	</table>
-	
+	<a href="../index.html" class="back-button">Home</a>
 </body>
 </html>

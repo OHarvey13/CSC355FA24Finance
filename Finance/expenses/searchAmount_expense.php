@@ -62,5 +62,6 @@ if (isset($_POST['submit'])) { // Form was submitted
         </tr>
     </table>
     <p>The total expenses are greater than or equal to <?php echo "$" . htmlspecialchars(number_format($amount, 2)); ?>.</p>
+    <a href="../index.html" class="back-button">Home</a>
 </body>
 </html>

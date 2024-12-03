@@ -75,5 +75,6 @@ if (isset($_POST['submit'])) { // Form was submitted
             ?>
 			</tbody>
         </table>
+        <a href="../index.html" class="back-button">Home</a>
 </body>
 </html>
