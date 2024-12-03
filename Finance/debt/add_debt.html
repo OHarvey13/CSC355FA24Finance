@@ -8,6 +8,25 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+	<style>
+		/* Ran into some issues with the formating of the drop down menu, 
+		fixed that with the following css - O. */
+		/* Add some custom styling to the form */
+		form label {
+			display: block; /* This makes the labels appear on a new line */
+			margin-bottom: 5px;
+		}
+
+		form select, form input {
+			margin-bottom: 10px;
+			display: block;
+		}
+		
+		label[for="Amount"] {
+			margin-top: 10px;
+		}
+
+	</style>
 </head>
 <body>
 
@@ -32,7 +51,14 @@
 		<br>
 
 		<label for="DebtType">Debt Type:</label>
-		<input type="text" name="DebtType" required>
+		<select name = "DebtType" required>
+			<option value="Credit Card">Credit Card</option>
+			<option value="Mortgage">Mortgage</option>
+			<option value="Student Loan">Student Loan</option>
+			<option value="Personal Loan">Personal Loan</option>
+			<option value="Car Loan">Car Loan</option>
+			<option value="Other">Other</option>
+		</select>
 		<br>
 
 		<label for="Amount">Amount:</label>

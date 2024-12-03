@@ -1,33 +1,49 @@
 <?php
 	ini_set('display_errors', 1);
 //Name: Ej Boakye
+//Error handling added by Omari Harvey
 /*This code assumes user input is valid and correct only for demo purposes - it does NOT validate form data.*/
 	if(isset($_POST['submit'])) { //Form was submitted
 		
 		try{
 			require_once('../../../pdo_connect.php'); //adjust the relative path as necessary to find your connect file
-			$sql = 'INSERT INTO Debt (DebtID, UserID, DebtType, Amount, InterestRate, PaymentDueDate) 
-			VALUES (:DebtID, :UserID, :DebtType, :Amount, :InterestRate, :PaymentDueDate)';
+			
+			// added some error handling *Omari
+			$DebtID = filter_input(INPUT_POST, 'DebtID', FILTER_VALIDATE_INT);
+			$UserID = filter_input(INPUT_POST, 'UserID', FILTER_VALIDATE_INT);
+			$Amount = filter_input(INPUT_POST, 'Amount', FILTER_VALIDATE_FLOAT);
+			$InterestRate = filter_input(INPUT_POST, 'InterestRate', FILTER_VALIDATE_FLOAT);
+			$PaymentDueDate = strip_tags($_POST['PaymentDueDate']);
+			$DebtType = strip_tags($_POST['DebtType']);
+
+			// Error handling for data types. Checks if the data is valid. *Omari
+			if ($DebtID === false || $UserID === false || $Amount == false || $InterestRate == false || empty($PaymentDueDate) || empty($DebtType)) {
+				echo "<h2>Invalid data. Please check your data and try again.</h2>";
+				exit;
+			}
+			
+			$sql = "INSERT INTO Debt (DebtID, UserID, DebtType, Amount, InterestRate, PaymentDueDate) 
+			VALUES (:DebtID, :UserID, :DebtType, :Amount, :InterestRate, :PaymentDueDate)";
 			
 			$stmt = $dbc->prepare($sql);
-			$stmt->bindParam(':DebtID', $_POST['DebtID'], PDO::PARAM_INT);
-			$stmt->bindParam(':UserID', $_POST['UserID'], PDO::PARAM_INT);
-			$stmt->bindParam(':DebtType', $_POST['DebtType'], PDO::PARAM_STR);
-			$stmt->bindParam(':Amount', $_POST['Amount'], PDO::PARAM_STR);
-			$stmt->bindParam(':InterestRate', $_POST['InterestRate'], PDO::PARAM_STR);
-			$stmt->bindParam(':PaymentDueDate', $_POST['PaymentDueDate'], PDO::PARAM_STR);
+			$stmt->bindParam(':DebtID', $DebtID, PDO::PARAM_INT);
+			$stmt->bindParam(':UserID', $UserID, PDO::PARAM_INT);
+			$stmt->bindParam(':Amount', $Amount, PDO::PARAM_STR);
+			$stmt->bindParam(':InterestRate', $InterestRate, PDO::PARAM_STR);
+			$stmt->bindParam(':PaymentDueDate', $PaymentDueDate, PDO::PARAM_STR);
+			$stmt->bindParam(':DebtType', $DebtType, PDO::PARAM_STR);
 
-			$stmt->execute();	
+			$stmt->execute();
+
 		} catch (PDOException $e){
 			echo $e->getMessage();
 		}	
 		$affected = $stmt->RowCount();
-		if ($affected == 0){
-			echo "We could not insert into Debt.";
-			exit;
+		if ($affected > 0){ // fixed this error as it was displaying unsuccesful on successful run * Omari
+			echo "Data inserted successfully";
 		}	
 		else {
-			$result = $stmt->fetchAll();
+			echo "An error has occured. Please try again later.";
 		}
 	} //end isset
 	else {
@@ -41,6 +57,22 @@
 <head>
     <title>Debt Submit result</title>
 	<meta charset ="utf-8"> 
+	<style>
+        .back-button {
+            display: inline-block;
+            background-color: #1C3F3A;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #1C3F3A;
+        }
+    </style>
 </head>
 <body>
 	<h2> Inserted Data: </h2>
@@ -61,9 +93,9 @@
 		echo "<td>".$_POST['Amount']."</td>";
 		echo "<td>".$_POST['InterestRate']."</td>";
 		echo "<td>".$_POST['PaymentDueDate']."</td>";
-		// echo "Affected rows: " . $affected;
 		echo "</tr>";
 	?> 
 	</table>
+	<a href="../index.html" class="back-button">Home</a>
 </body>
 </html>
