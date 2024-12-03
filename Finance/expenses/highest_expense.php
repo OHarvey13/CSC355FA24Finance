@@ -6,19 +6,13 @@ if (isset($_POST['submit'])) {
     try {
         require_once('../../../pdo_connect.php'); // Adjust path to your database connection file
 
-        // Prepare SQL query to fetch records based on UserID and optional text-based search
-        $searchTerm = isset($_POST['ExpenseTypeSearch']) && !empty($_POST['ExpenseTypeSearch'])
-            ? "%" . $_POST['ExpenseTypeSearch'] . "%"
-            : "%";
-
+        // SQL query to find the highest expense for a user
         $sql = "SELECT * FROM Expenses 
                 WHERE UserID = :UserID 
-                AND ExpenseType LIKE :ExpenseTypeSearch 
-                ORDER BY ExpenseID";
+                AND Amount = (SELECT MAX(Amount) FROM Expenses WHERE UserID = :UserID)";
 
         $stmt = $dbc->prepare($sql);
         $stmt->bindParam(':UserID', $_POST['UserID'], PDO::PARAM_INT);
-        $stmt->bindParam(':ExpenseTypeSearch', $searchTerm, PDO::PARAM_STR);
 
         // Execute the query
         $stmt->execute();
@@ -28,7 +22,7 @@ if (isset($_POST['submit'])) {
 
         // Check if any records were found
         if (empty($result)) {
-            echo "<h2>No expense records found for the provided UserID and search term.</h2>";
+            echo "<h2>No expenses found for the provided UserID.</h2>";
             echo "<a href='../index.html' class='back-button'>Go to Home</a>";
             exit;
         }
@@ -46,7 +40,7 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>View Expenses</title>
+    <title>Highest Expense</title>
     <meta charset="utf-8"> 
     <style>
         .back-button {
@@ -66,10 +60,7 @@ if (isset($_POST['submit'])) {
     </style>
 </head>
 <body>
-    <h2>View Expenses for UserID: <?php echo htmlspecialchars($_POST['UserID']); ?></h2>
-    <?php if (!empty($_POST['ExpenseTypeSearch'])): ?>
-        <h3>Search Term: "<?php echo htmlspecialchars($_POST['ExpenseTypeSearch']); ?>"</h3>
-    <?php endif; ?>
+    <h2>Highest Expense for UserID: <?php echo htmlspecialchars($_POST['UserID']); ?></h2>
     <table border="1">
         <tr> 
             <th>Expense ID</th>

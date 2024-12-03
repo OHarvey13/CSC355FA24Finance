@@ -5,8 +5,8 @@
 
 // Set the database access information as constants:
 const DBCONNSTRING ='mysql:host=localhost;dbname=CSC355FA24Finance';
-const DB_USER = 'odh1818';
-const DB_PASSWORD = 'AFxFEhhxrnQ5Gi';
+const DB_USER = 'res7348';
+const DB_PASSWORD = 'HzsDjoqDoarZry';
 
 
 // Make the connection:

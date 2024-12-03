@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--  -->
 <head>
-    <title>Expenses Page</title>
+    <title>Highest Expense</title>
     <meta charset="utf-8"> 
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h2>View Expenses:</h2>
+    <h2>Find Highest Expense:</h2>
     
     <a href="../index.html"> 
         <button>
@@ -21,11 +20,7 @@
         </button>
     </a>
 
-    <form method="post" action="view_expense.php">
-        <label for="ExpenseTypeSearch">Search by Expense Type:</label>
-        <input type="text" name="ExpenseTypeSearch">
-        <br>
-
+    <form method="post" action="highest_expense.php">
         <label for="UserID">User ID:</label>
         <input type="number" name="UserID" required>
         <br>
