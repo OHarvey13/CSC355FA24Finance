@@ -13,7 +13,7 @@ if(isset($_POST['submit'])) { //Form was submitted
 		$stmt->bindParam(':UserID', $_POST['UserID'], PDO::PARAM_INT);
 		$stmt->bindParam(':GoalName', $_POST['GoalName'], PDO::PARAM_STR);
 		$stmt->bindParam(':CurrentAmount', $_POST['CurrentAmount'], PDO::PARAM_STR);
-                $stmt->bindParam(':GoalAmount', $_POST['GoalAmount'], PDO::PARAM_STR);
+        $stmt->bindParam(':GoalAmount', $_POST['GoalAmount'], PDO::PARAM_STR);
 		$stmt->bindParam(':InterestRate', $_POST['InterestRate'], PDO::PARAM_STR);
 		$stmt->bindParam(':TargetDate', $_POST['TargetDate'], PDO::PARAM_STR);
 
