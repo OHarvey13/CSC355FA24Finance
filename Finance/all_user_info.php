@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) { // Form was submitted
     <meta charset="utf-8">
 </head>
 <body>
-    <a href="../index.html" class="back-button">Home</a>
+    <a href="index.html" class="back-button">Home</a>
     <h2>User Data</h2>
         <table border="1">
             <thead>
