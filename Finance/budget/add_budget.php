@@ -6,28 +6,28 @@
             require_once('../../../pdo_connect.php'); // Adjust the path as needed
 
             // Error handling and filtering inputs
-            $BudgetID = filter_input(INPUT_POST, 'DebtID', FILTER_VALIDATE_INT);
+            $BudgetID = filter_input(INPUT_POST, 'BudgetID', FILTER_VALIDATE_INT);
             $UserID = filter_input(INPUT_POST, 'UserID', FILTER_VALIDATE_INT);
-            $BudgetType = strip_tags($_POST['BudgetType']);
-            $Amount = filter_input(INPUT_POST, 'Amount', FILTER_VALIDATE_FLOAT);
+            $Category = strip_tags($_POST['Category']);
+            $BudgetAmount = filter_input(INPUT_POST, 'BudgetAmount', FILTER_VALIDATE_FLOAT);
             $StartDate = strip_tags($_POST['StartDate']);
             $EndDate = strip_tags($_POST['EndDate']);
 
             // Validate input data
-            if ($BudgetID === false || $UserID === false || $Amount === false || empty($BudgetType) || empty($StartDate) || empty($EndDate)) {
+            if ($BudgetID === false || $UserID === false || $BudgetAmount === false || empty($Category) || empty($StartDate) || empty($EndDate)) {
                 echo "<h2>Invalid data. Please check your input and try again.</h2>";
                 exit;
             }
 
             // SQL statement to insert budget data
-            $sql = "INSERT INTO Budget (BudgetID, UserID, BudgetType, Amount, StartDate, EndDate) 
-                    VALUES (:BudgetID, :UserID, :BudgetType, :Amount, :StartDate, :EndDate)";
+            $sql = "INSERT INTO Budget (BudgetID, UserID, Category, BudgetAmount, StartDate, EndDate) 
+                    VALUES (:BudgetID, :UserID, :Category, :BudgetAmount, :StartDate, :EndDate)";
             
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(':BudgetID', $BudgetID, PDO::PARAM_INT);
             $stmt->bindParam(':UserID', $UserID, PDO::PARAM_INT);
-            $stmt->bindParam(':BudgetType', $BudgetType, PDO::PARAM_STR);
-            $stmt->bindParam(':Amount', $Amount, PDO::PARAM_STR);
+            $stmt->bindParam(':Category', $Category, PDO::PARAM_STR);
+            $stmt->bindParam(':BudgetAmount', $BudgetAmount, PDO::PARAM_STR);
             $stmt->bindParam(':StartDate', $StartDate, PDO::PARAM_STR);
             $stmt->bindParam(':EndDate', $EndDate, PDO::PARAM_STR);
 
@@ -83,10 +83,10 @@
         </tr>
         <tr>
             <?php
-                echo "<td>" . htmlspecialchars($_POST['DebtID']) . "</td>";
+                echo "<td>" . htmlspecialchars($_POST['BudgetID']) . "</td>";
                 echo "<td>" . htmlspecialchars($_POST['UserID']) . "</td>";
-                echo "<td>" . htmlspecialchars($_POST['BudgetType']) . "</td>";
-                echo "<td>" . number_format($_POST['Amount'], 2) . "</td>";
+                echo "<td>" . htmlspecialchars($_POST['Category']) . "</td>";
+                echo "<td>" . number_format($_POST['BudgetAmount'], 2) . "</td>";
                 echo "<td>" . htmlspecialchars($_POST['StartDate']) . "</td>";
                 echo "<td>" . htmlspecialchars($_POST['EndDate']) . "</td>";
             ?>
