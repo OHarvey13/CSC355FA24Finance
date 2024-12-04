@@ -2,22 +2,56 @@
 ini_set('display_errors', 1);
 //Name: Caleb Yarborough
 /*This code assumes user input is valid and correct only for demo purposes - it does NOT validate form data.*/
-if(isset($_POST['submit'])) { //Form was submitted
+if(isset($_POST['submit'])) { 
 
 	try{
 		require_once('../../../pdo_connect.php'); 
-		$sql = 'UPDATE Savings SET CurrentAmount = :CurrentAmount, GoalAmount = :GoalAmount, GoalName = :GoalName, InterestRate = :InterestRate, TargetDate = :TargetDate WHERE SavingsID = :SavingsID AND UserID = :UserID';
+		
+		$sql = 'UPDATE Savings SET ';
 
-		$stmt = $dbc->prepare($sql);
-		$stmt->bindParam(':SavingsID', $_POST['SavingsID'], PDO::PARAM_INT);
-		$stmt->bindParam(':UserID', $_POST['UserID'], PDO::PARAM_INT);
-		$stmt->bindParam(':GoalName', $_POST['GoalName'], PDO::PARAM_STR);
-		$stmt->bindParam(':CurrentAmount', $_POST['CurrentAmount'], PDO::PARAM_STR);
-        $stmt->bindParam(':GoalAmount', $_POST['GoalAmount'], PDO::PARAM_STR);
-		$stmt->bindParam(':InterestRate', $_POST['InterestRate'], PDO::PARAM_STR);
-		$stmt->bindParam(':TargetDate', $_POST['TargetDate'], PDO::PARAM_STR);
+		$updateFields = [];
+		if (!empty($_POST['GoalName'])) {
+			$updateFields[] = "GoalName = :GoalName";
+		}
+		if (!empty($_POST['CurrentAmount'])) {
+			$updateFields[] = "CurrentAmount = :CurrentAmount";
+		}
+		if (!empty($_POST['GoalAmount'])) {
+			$updateFields[] = "GoalAmount = :GoalAmount";
+		}
+		if (!empty($_POST['InterestRate'])) {
+			$updateFields[] = "InterestRate = :InterestRate";
+		}
+		if (!empty($_POST['TargetDate'])) {
+			$updateFields[] = "TargetDate = :TargetDate";
+		}
+		
 
-		$stmt->execute();	
+		if (count($updateFields) > 0) {
+			$sql .= implode(', ', $updateFields) . ' WHERE SavingsID = :SavingsID AND UserID = :UserID';
+			$stmt = $dbc->prepare($sql);
+
+			$stmt->bindParam(':SavingsID', $_POST['SavingsID'], PDO::PARAM_INT);
+			$stmt->bindParam(':UserID', $_POST['UserID'], PDO::PARAM_INT);
+			if (!empty($_POST['GoalName'])) {
+				$stmt->bindParam(':GoalName', $_POST['GoalName'], PDO::PARAM_STR);
+			}
+			if (!empty($_POST['CurrentAmount'])) {
+				$stmt->bindParam(':CurrentAmount', $_POST['CurrentAmount'], PDO::PARAM_STR);
+			}
+			if (!empty($_POST['GoalAmount'])) {
+				$stmt->bindParam(':GoalAmount', $_POST['GoalAmount'], PDO::PARAM_STR);
+			}
+			if (!empty($_POST['InterestRate'])) {
+				$stmt->bindParam(':InterestRate', $_POST['InterestRate'], PDO::PARAM_STR);
+			}
+			if (!empty($_POST['TargetDate'])) {
+				$stmt->bindParam(':TargetDate', $_POST['TargetDate'], PDO::PARAM_STR);
+			}
+
+			$stmt->execute();
+		}
+		
 	} catch (PDOException $e){
 		echo $e->getMessage();
 	}	
@@ -41,22 +75,6 @@ else {
 <head>
     <title>Savings Submit result</title>
 	<meta charset ="utf-8"> 
-	<style>
-        .back-button {
-            display: inline-block;
-            background-color: #1C3F3A;
-            color: white;
-            padding: 10px 20px;
-            margin-top: 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background-color: #1C3F3A;
-        }
-    </style>
 </head> 
 <body>
 	<h2> Updated Data: </h2>
@@ -82,6 +100,6 @@ else {
 		echo "</tr>";
 	?>
     </table>
-	<a href="../index.html" class="back-button">Home</a>
+	
 </body>
 </html>
