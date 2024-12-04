@@ -6,7 +6,7 @@
         try {
             require_once('../../../pdo_connect.php'); // Adjust the relative path as necessary to find your connect file
 
-            $BudgetID = filter_input(INPUT_POST, 'DebtID', FILTER_VALIDATE_INT); // Using 'DebtID' as provided in the form
+            $BudgetID = filter_input(INPUT_POST, 'BudgetID', FILTER_VALIDATE_INT); // Using 'DebtID' as provided in the form
 
             if ($BudgetID === false) {
                 echo "<h2>Invalid data. Please check your data and try again.</h2>";
@@ -14,20 +14,20 @@
             }
 
             $stmt = $dbc->prepare("SELECT * FROM Budget WHERE BudgetID = :BudgetID ORDER BY BudgetID");
-            $stmt->bindParam(':BudgetID', $_POST['DebtID'], PDO::PARAM_INT);
+            $stmt->bindParam(':BudgetID', $BudgetID, PDO::PARAM_INT);
             $stmt->execute();
 
             $results = $stmt->fetchAll();
             if ($results) {
                 echo '<h1>Budget</h1>';
                 echo '<table border="1">';
-                echo '<tr><th>BudgetID</th><th>UserID</th><th>BudgetType</th><th>Amount</th><th>StartDate</th><th>EndDate</th></tr>';
+                echo '<tr><th>BudgetID</th><th>UserID</th><th>Category</th><th>Budget Amount</th><th>StartDate</th><th>EndDate</th></tr>';
                 foreach ($results as $row) {
                     echo '<tr>';
                     echo '<td>' . $row['BudgetID'] . '</td>';
                     echo '<td>' . $row['UserID'] . '</td>';
-                    echo '<td>' . $row['BudgetType'] . '</td>';
-                    echo '<td>' . $row['Amount'] . '</td>';
+                    echo '<td>' . $row['Category'] . '</td>';
+                    echo '<td>' . $row['BudgetAmount'] . '</td>';
                     echo '<td>' . $row['StartDate'] . '</td>';
                     echo '<td>' . $row['EndDate'] . '</td>';
                     echo '</tr>';

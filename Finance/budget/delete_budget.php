@@ -7,7 +7,7 @@
             require_once('../../../pdo_connect.php');
 
             // Retrieve and validate BudgetID
-            $BudgetID = filter_input(INPUT_POST, 'DebtID', FILTER_VALIDATE_INT);
+            $BudgetID = filter_input(INPUT_POST, 'BudgetID', FILTER_VALIDATE_INT);
 
             if ($BudgetID === false || empty($BudgetID)) {
                 echo "<h2>Invalid Budget ID. Please check your input and try again.</h2>";
@@ -80,21 +80,3 @@
         exit;
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Budget Delete Result</title>
-    <meta charset="utf-8">
-</head>
-<body>
-    <h2>Deleted Data:</h2>
-    <table>
-        <tr>
-            <th>Deleted Budget ID</th>
-        </tr>
-        <tr>
-            <td><?php echo htmlspecialchars($_POST['DebtID']); ?></td>
-        </tr>
-    </table>
-</body>
-</html>
